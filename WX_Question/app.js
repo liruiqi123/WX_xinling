@@ -2,6 +2,7 @@
 var md5 = require('utils/md5.js')
 var wxTools = require('utils/wxTools.js')
 var loginInfo = {};
+var gamekey = "game1";
 
 
 
@@ -10,7 +11,7 @@ var loginInfo = {};
 
 App({
   setConfig: {
-    url: 'https://www.niftydose.cn/Dati',
+    url: 'https://www.niftydose.cn/User/public/index.php',
     hb_appid: 'wx7a1aa038211464b4',
     hb_appsecret: '56a72e174923c1bdadd7cb39fefa101f'
   },
@@ -63,21 +64,24 @@ App({
                     // 可以将 res 发送给后台解码出 unionId
                     var infoUser = '';
                     that.globalData.userInfo = infoUser = res.userInfo;
+                    console.log(res.userInfo);
+                    
                     // 所以此处加入 callback 以防止这种情况 获取慢
                     if (that.userInfoReadyCallback) {
                       that.userInfoReadyCallback(res)
                     }
                     //用户信息入库
-                    var url = that.setConfig.url + '/index.php/User/login/dologin';
+                    var url = that.setConfig.url + '/user/Login/postUserInfo';
                     var data = {
-                      user_name: infoUser.nickName,
-                      nick_name: infoUser.nickName,
-                      head_img: infoUser.avatarUrl,
-                      sex: infoUser.gender,
-                      coutry: infoUser.country,
-                      city: infoUser.city,
-                      province: infoUser.province,
                       code: codes,
+                      gameKey:gamekey,
+                      picture: infoUser.avatarUrl,
+                      city: infoUser.city,
+                      country: infoUser.country,
+                      gender: infoUser.gender,
+                      language:infoUser.language,
+                      nickName: infoUser.nickName,
+                      province: infoUser.province
                     }
                     //that.postLogin(url, data);
                     that.request(url, data, (res) => {
@@ -133,7 +137,6 @@ App({
                           city: infoUser.city,
                           province: infoUser.province,
                           code: codes,
-                          // 
                           encryptedData: res.encryptedData,
                           iv: res.iv,
                         }
@@ -177,7 +180,37 @@ App({
       }
     })
   },
+
+
   request: function (url, data, cb, page){
+
+    var that=this;
+
+    console.log(data);
+
+    wx.request({
+      url: url,
+      data: data,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function(res){
+        console.log(res.data);
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  },
+
+
+
+
+
+  requestOld: function (url, data, cb, page) {
     var signData = this.getSign();
     data.sign = signData.sign;
     data.timestamp = signData.timestamp;
