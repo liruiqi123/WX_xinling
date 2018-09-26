@@ -64,7 +64,6 @@ App({
                     // 可以将 res 发送给后台解码出 unionId
                     var infoUser = '';
                     that.globalData.userInfo = infoUser = res.userInfo;
-                    console.log(res.userInfo);
                     
                     // 所以此处加入 callback 以防止这种情况 获取慢
                     if (that.userInfoReadyCallback) {
@@ -86,6 +85,8 @@ App({
                     //that.postLogin(url, data);
                     that.request(url, data, (res) => {
                       // console.log(res)
+                      console.log(res);
+                      
                       if (res.data.code != 20000) {
                         wx.showToast({
                           title: res.data.msg,
@@ -186,8 +187,6 @@ App({
 
     var that=this;
 
-    console.log(data);
-
     wx.request({
       url: url,
       data: data,
@@ -195,7 +194,7 @@ App({
         'content-type': 'application/json' // 默认值
       },
       success: function(res){
-        console.log(res.data);
+        console.log(res.data.code);
       },
       fail: function() {
         // fail
