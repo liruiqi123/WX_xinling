@@ -3,6 +3,11 @@ var md5 = require('utils/md5.js')
 var wxTools = require('utils/wxTools.js')
 var loginInfo = {};
 
+
+
+
+
+
 App({
   setConfig: {
     url: 'https://www.niftydose.cn/Dati',
