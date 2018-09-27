@@ -807,7 +807,7 @@ Page({
   initial: function () {
     // 接口
     wx.hideLoading()
-    var postUrl = app.setConfig.url + '/index.php/api/enve/startGame',
+    var postUrl = app.setConfig.url + '/user/Questions/startGame',
       postData = {
         token: this.data.token
       }
@@ -815,18 +815,17 @@ Page({
     // app.postLogin(postUrl, postData, function (res) {
     app.request(postUrl, postData, function (res) {
       console.log(res);
-      console.log(res.data.code);
-      console.log(res.data.msg);
       if (res.data.code == 20000) {
         let data = res.data.quests
         let qa = []
         for (let i = 0; i < data.length; i++) {
           let item = {
             id: data[i].id,
-            question: data[i].quiz,
+            question: data[i].question,
             key: data[i].answer,  // data[i].answer
             answer: JSON.parse(data[i].options)
           }
+          console.log(item.question);
           qa.push(item)
         }
         var length = data.length;

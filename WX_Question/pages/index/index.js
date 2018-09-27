@@ -34,6 +34,7 @@ Page({
     info: '', // 信息
     more: 0, // 是否显示更多游戏
     share_text: "",
+    rule_text:"大家好，我就是简简单单给你们送娃娃的规则",
     share_bg:"",
     frequency: 0 ,//次数
     show_share:false,
@@ -58,21 +59,21 @@ Page({
     show: true,
     loadct: false,
     sildeTxt:[    //获得新消息数组
-      // {
-      //   head_img: "https://wx.qlogo.cn/mmopen/vi_32/hzcI0l9A7zFaX3mdZDKfY1x71icvNMaHxqJdJ5lZZd1A4nH9gBG8NJQZpL8CzvGib4NUmiaibMzSlneiapJ8us4XNxA/0",
-      //   nick_name: "啦啦啦",
-      //   prize_name:"泰迪熊"
-      // },
-      // {
-      //   head_img: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIImyIibGHianiaEOyYLbFKMKkVsBPj9S5QncqWcoAOIJI1pcMwzwd8YmgV3dgcPg97IaXLk3hxGFiaSw/0",
-      //   nick_name: "去去去",
-      //   prize_name:"泰迪熊"
-      // },
-      // {
-      //   head_img: "https://wx.qlogo.cn/mmopen/vi_32/bGXfAK9NreIjCGLgjiaibOXLCpR8ZMIAjpxpI035iasj41DuQOgUqxVFGVPdtuibkjrzlL3S3xADM05MUlX3UhxDaw/0",
-      //   nick_name: "啛啛喳喳",
-      //   prize_name:"泰迪熊"
-      // },
+      {
+        head_img: "https://wx.qlogo.cn/mmopen/vi_32/hzcI0l9A7zFaX3mdZDKfY1x71icvNMaHxqJdJ5lZZd1A4nH9gBG8NJQZpL8CzvGib4NUmiaibMzSlneiapJ8us4XNxA/0",
+        nick_name: "啦啦啦",
+        prize_name:"泰迪熊"
+      },
+      {
+        head_img: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIImyIibGHianiaEOyYLbFKMKkVsBPj9S5QncqWcoAOIJI1pcMwzwd8YmgV3dgcPg97IaXLk3hxGFiaSw/0",
+        nick_name: "去去去",
+        prize_name:"泰迪熊"
+      },
+      {
+        head_img: "https://wx.qlogo.cn/mmopen/vi_32/bGXfAK9NreIjCGLgjiaibOXLCpR8ZMIAjpxpI035iasj41DuQOgUqxVFGVPdtuibkjrzlL3S3xADM05MUlX3UhxDaw/0",
+        nick_name: "啛啛喳喳",
+        prize_name:"泰迪熊"
+      },
     ],
     // 选中显示的新消息
     news:{
@@ -311,9 +312,11 @@ Page({
   overdue_btn: function () {
     this.toload(0);
     if (this.reloadFn && !app.globalData.token) {
+      console.log("111111");
       app.userLogin(this);
       // this.reloadFn()
     }else{
+      console.log("222222");
       this.reloadFn();
     }
     this.setData({
@@ -350,7 +353,6 @@ Page({
     
     mask = true;
     if (loadct) {
-    // console.log(1111222)
       this.setData({
         loadct: true
       })
@@ -389,6 +391,8 @@ Page({
       hasUserInfo: true
     })
     postUrl = app.setConfig.url + '/index.php?g=Api&m=Enve&a=getGlobalInfo';
+    
+    
     postData = {
       token: tok,
       page: 1
@@ -401,8 +405,9 @@ Page({
 
   initial: function (res) {
     console.log(res.data.data);
-    if (res.data.code == 20000) {
-      var data = res.data.data;
+    if (res.data.code != 20000) {
+      // var data = res.data.data;
+      var data = this.data;
       // console.log(data)
       var ruleText = data.rule_text;
       //var money = data.money; 原来的方法中未有money值传回，暂时写一个默认值

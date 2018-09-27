@@ -82,11 +82,8 @@ App({
                       nickName: infoUser.nickName,
                       province: infoUser.province
                     }
-                    //that.postLogin(url, data);
                     that.request(url, data, (res) => {
-                      // console.log(res)
                       console.log(res);
-                      
                       if (res.data.code != 20000) {
                         wx.showToast({
                           title: res.data.msg,
@@ -106,6 +103,7 @@ App({
                       }
                       if (res.data.token) {
                         that.globalData.token = res.data.token;
+                        console.log(res.data.token);
                         if (that.tokenReadyCallback) {
                           that.tokenReadyCallback();
                         }
@@ -142,7 +140,7 @@ App({
                           iv: res.iv,
                         }
                         //that.postLogin(url, data);
-                        that.request(url, data,function(res){
+                        that.requestOld(url, data,function(res){
                           if (res.data.code != 20000) {
                             wx.showToast({
                               title: res.data.msg,
@@ -183,33 +181,7 @@ App({
   },
 
 
-  request: function (url, data, cb, page){
-
-    var that=this;
-
-    wx.request({
-      url: url,
-      data: data,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res){
-        console.log(res.data.code);
-      },
-      fail: function() {
-        // fail
-      },
-      complete: function() {
-        // complete
-      }
-    })
-  },
-
-
-
-
-
-  requestOld: function (url, data, cb, page) {
+  request: function (url, data, cb, page) {
     var signData = this.getSign();
     data.sign = signData.sign;
     data.timestamp = signData.timestamp;
