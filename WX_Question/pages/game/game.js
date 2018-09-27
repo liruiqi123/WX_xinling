@@ -285,8 +285,10 @@ Page({
       rule: false,
       right: true
     })
+    console.log(this.data.rule);
+    console.log("-------------");
     // 挑战次数记录
-    var postUrl = app.setConfig.url + '/index.php/api/enve/getGameFlag',
+    var postUrl = app.setConfig.url + '/user/GlobalData/getGameFlag',
       postData = {
         token: this.data.token
       }
@@ -298,7 +300,7 @@ Page({
       console.log(res.data.code);
       console.log(res.data.msg);
 
-      if (res.data.code == 40500) {
+      if (res.data.code == 20000) {
         isPlay = 1
         nowfrequency = 0
         that.loading();
@@ -320,7 +322,10 @@ Page({
   },
   // 倒计时
   loading: function () {
-    var qa = this.data.qa
+    console.log("倒计时开始了么");
+    var qa = this.data.qa;
+    console.log(qa.length);
+    console.log(this.data.rule);
     if (qa.length > 0 && !this.data.rule){
       innerAudioContext.stop();
       innerAudioContext.src = '/music/timer.mp3'
