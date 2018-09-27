@@ -4,11 +4,6 @@ var wxTools = require('utils/wxTools.js')
 var loginInfo = {};
 var gamekey = "game1";
 
-
-
-
-
-
 App({
   setConfig: {
     url: 'https://www.niftydose.cn/User/public/index.php',
