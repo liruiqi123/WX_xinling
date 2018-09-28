@@ -8,7 +8,8 @@ App({
   setConfig: {
     url: 'https://www.niftydose.cn/User/public/index.php',
     hb_appid: 'wx7a1aa038211464b4',
-    hb_appsecret: '56a72e174923c1bdadd7cb39fefa101f'
+    hb_appsecret: '56a72e174923c1bdadd7cb39fefa101f',
+      answer_flag:0
   },
   onLaunch: function () {
     //this.userLogin();

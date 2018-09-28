@@ -297,10 +297,6 @@ Page({
     var that = this;
     // app.postLogin(postUrl, postData, function (res) {
     app.request(postUrl, postData, function (res) {
-      // console.log(res)
-      console.log(res);
-      console.log(res.data.code);
-      console.log(res.data.msg);
 
       if (res.data.code == 20000) {
         isPlay = 1
@@ -430,13 +426,24 @@ Page({
 
     that.data.sum = parseInt(that.data.sum) + parseInt(qa[qaSelect - 1]);
 
-    
-    console.log(qa);
-    console.log(qaSelect);
-    console.log(qa[qaSelect - 1]);
-    console.log(that.data.sum);
 
-    console.log("-----------------");
+      if (qaTarget == that.data.length-1){
+           if(that.data.sum == 15){
+                app.setConfig.answer_flag = 0;
+           }else if(that.data.sum >=13){
+               app.setConfig.answer_flag = 1;
+           }else if(that.data.sum >=6){
+               app.setConfig.answer_flag = 2;
+           }else {
+               app.setConfig.answer_flag = 3;
+           }
+      }
+
+    console.log("---------------------------");
+    console.log(app.setConfig.answer_flag);
+    console.log(that.data.sum);
+    console.log("---------------------------");
+
 
 
     
