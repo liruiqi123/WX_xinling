@@ -11,7 +11,8 @@
     "pages/ranking/ranking",
     "pages/game/game",
     "pages/certificate/certificate",
-    "pages/help/help"
+    "pages/help/help",
+    "pages/resultPicture/resultPicture"
     
   ],
   "window": {

@@ -22,6 +22,7 @@ var money = 0
 // 错误判断时间 -定时器
 var delay = null;
 var nopushagin = true;  //禁止用户乱点答题,true为可点
+var grade ;
 Page({
 
   /**
@@ -281,12 +282,13 @@ Page({
   //关闭规则说明  开始游戏
   closeRule: function () {
     var frequency;
+    
     this.setData({
       rule: false,
-      right: true
+      right: true,
+      sum:0
     })
-    console.log(this.data.rule);
-    console.log("-------------");
+
     // 挑战次数记录
     var postUrl = app.setConfig.url + '/user/GlobalData/getGameFlag',
       postData = {
@@ -322,7 +324,6 @@ Page({
   },
   // 倒计时
   loading: function () {
-    console.log("倒计时开始了么");
     var qa = this.data.qa;
     console.log(qa.length);
     console.log(this.data.rule);
@@ -426,20 +427,36 @@ Page({
     var qaYes = this.data.qaYes;
     var flag2 = this.data.flag2;
     var flag6 = this.data.flag6;
+
+    that.data.sum = parseInt(that.data.sum) + parseInt(qa[qaSelect - 1]);
+
+    
+    console.log(qa);
+    console.log(qaSelect);
+    console.log(qa[qaSelect - 1]);
+    console.log(that.data.sum);
+
+    console.log("-----------------");
+
+
+    
+
+
     // 记录
     if (nopushagin){
       nopushagin = false;
-      if (qaSelect == qa) { //yes
-        // if (true) {
-        innerAudioContext.stop();
-        innerAudioContext.src = '/music/right.mp3'
-        innerAudioContext.play();
-        wx.showToast({
-          title: '答对啦',
-          icon: 'success',
-          mask: true,
-          duration: 1000
-        })
+      
+      // if (qaSelect == qa) { //yes
+      if (true) {
+        // innerAudioContext.stop();
+        // innerAudioContext.src = '/music/right.mp3'
+        // innerAudioContext.play();
+        // wx.showToast({
+        //   title: '答对啦',
+        //   icon: 'success',
+        //   mask: true,
+        //   duration: 1000
+        // })
         qaAnswer.push(1);
         qaYes++;
         this.setData({
@@ -524,9 +541,16 @@ Page({
             duration: 1500
           })
           // 获取赏金
+          // setTimeout(function () {
+          //   that.open();
+          // }, 1200)
+
           setTimeout(function () {
-            that.open();
-          }, 1200)
+            wx.reLaunch({
+              url: '../resultPicture/resultPicture',
+            })
+          }, 1550);
+
           return false;
         }
       } else {
@@ -827,10 +851,11 @@ Page({
           let item = {
             id: data[i].id,
             question: data[i].question,
-            key: data[i].answer,  // data[i].answer
+            // key: data[i].answer,  // data[i].answer
+            key: JSON.parse(data[i].answer),  // data[i].answer
             answer: JSON.parse(data[i].options)
           }
-          console.log(item.question);
+          console.log(item);
           qa.push(item)
         }
         var length = data.length;
